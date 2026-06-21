@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apolingo — Главный экран</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-body">
+  <main class="dashboard-page dashboard-page-bg" id="dashboardPage">
+    <button class="dashboard-logo-hotspot" id="closeAllPopups" type="button" aria-label="Apolingo"></button>
+    <a class="gift-link dashboard-gift-hotspot" href="https://t.me/addstickers/Apolingo" aria-label="Получить стикеры Apolingo"></a>
+    <button class="dashboard-profile-hotspot" id="openProfile" type="button" aria-label="Профиль"></button>
+    <button class="dashboard-learning-hotspot" id="openLearning" type="button" aria-label="Обучение"></button>
+    <button class="dashboard-about-hotspot" id="openAbout" type="button" aria-label="О нас"></button>
+
+    <img class="dashboard-active-nav dashboard-active-profile" id="activeProfileNav" src="assets/dashboard-profile-active.png" alt="Профиль">
+    <img class="dashboard-active-nav dashboard-active-learning" id="activeLearningNav" src="assets/dashboard-learning-active.png" alt="Обучение">
+    <img class="dashboard-active-nav dashboard-active-about" id="activeAboutNav" src="assets/dashboard-about-active.png" alt="О нас">
+
+    <section class="dash-panel profile-panel" id="profilePanel" aria-hidden="true">
+      <div class="profile-content">
+        <button class="profile-avatar-button" id="avatarButton" type="button" aria-label="Загрузить аватар">
+          <img class="profile-avatar-bg" src="assets/profile-avatar-bg.png" alt="">
+          <img class="profile-avatar-img" id="avatarPreview" alt="">
+        </button>
+        <input class="profile-avatar-input" id="avatarInput" type="file" accept="image/*">
+        <div class="profile-login" id="profileLogin">Apolion</div>
+        <div class="profile-divider"></div>
+        <img class="profile-stat-title" src="assets/profile-stat-title.png" alt="Статистика">
+        <div class="profile-stat-card">
+          <img class="profile-book-icon" src="assets/profile-book-icon.png" alt="">
+          <span class="profile-stat-number" id="completedLessons">0</span>
+          <span class="profile-stat-caption">Пройденных разделов</span>
+        </div>
+      </div>
+      <a class="gift-link profile-gift-link" href="https://t.me/addstickers/Apolingo" aria-label="Получить стикеры Apolingo"><img class="profile-gift" src="assets/gift-card.png" alt=""></a>
+    </section>
+
+    <section class="dash-panel image-panel learning-panel" id="learningPanel" aria-hidden="true">
+      <button class="module1-start-hotspot" id="openModule1" type="button" aria-label="Начать модуль 1"></button>
+      <a class="gift-link panel-gift-hotspot" href="https://t.me/addstickers/Apolingo" aria-label="Получить стикеры Apolingo"></a>
+    </section>
+
+    <section class="dash-panel image-panel about-dashboard-panel" id="aboutPanel" aria-hidden="true">
+      <a class="gift-link panel-gift-hotspot" href="https://t.me/addstickers/Apolingo" aria-label="Получить стикеры Apolingo"></a>
+    </section>
+
+    <section class="dash-panel module1-panel" id="module1Panel" aria-hidden="true">
+      <button class="module1-close" id="closeModule1" type="button" aria-label="Назад к обучению"><img src="assets/close.png" alt=""></button>
+      <img class="module1-title-img" src="assets/module1-title.png" alt="Модуль 1">
+
+      <button class="module-level level-1" data-question-index="0" type="button" aria-label="Вопрос 1"><img src="assets/level-locked.png" alt=""></button>
+      <button class="module-level level-2" data-question-index="1" type="button" aria-label="Вопрос 2"><img src="assets/level-locked.png" alt=""></button>
+      <button class="module-level level-3" data-question-index="2" type="button" aria-label="Вопрос 3"><img src="assets/level-locked.png" alt=""></button>
+      <button class="module-level level-4" data-question-index="3" type="button" aria-label="Вопрос 4"><img src="assets/level-locked.png" alt=""></button>
+      <button class="module-level level-5" data-question-index="4" type="button" aria-label="Вопрос 5"><img src="assets/level-locked.png" alt=""></button>
+      <button class="module-level boss-level" data-question-index="5" type="button" aria-label="Вопрос 6"><img src="assets/boss-locked.png" alt=""></button>
+
+      <img class="module1-mascot" src="assets/module1-mascot.png" alt="">
+      <a class="gift-link module1-gift-link" href="https://t.me/addstickers/Apolingo" aria-label="Получить стикеры Apolingo"><img class="module1-gift" src="assets/gift-card.png" alt=""></a>
+    </section>
+
+    <section class="dash-panel question-panel" id="questionPanel" aria-hidden="true">
+      <button class="question-close" id="closeQuestion" type="button" aria-label="Назад к модулю"><img src="assets/close.png" alt=""></button>
+      <img class="question-title-img" src="assets/question-title.png" alt="Выбери верный вариант">
+      <img class="question-mascot" src="assets/question-mascot.png" alt="">
+      <div class="question-bubble" id="questionText"></div>
+      <div class="answer-list" id="answerList"></div>
+      <button class="question-next" id="questionNext" type="button"><img src="assets/next-button.png" alt="Далее"></button>
+    </section>
+
+    <section class="dash-panel result-panel" id="resultPanel" aria-hidden="true">
+      <button class="result-close" id="closeResult" type="button" aria-label="Назад к модулю"><img src="assets/close.png" alt=""></button>
+      <img class="result-title-img" src="assets/result-title.png" alt="Оценка">
+      <img class="result-mascot" src="assets/result-mascot.png" alt="">
+      <div class="result-scroll-wrap">
+        <img class="result-scroll" src="assets/result-scroll.png" alt="">
+        <div class="result-score-text" id="resultScoreText">Правильно решено<br>0 из 6</div>
+      </div>
+    </section>
+  </main>
+
+  <button class="dashboard-logout-fixed" id="logoutButton" type="button" aria-label="Выход"><img src="assets/dashboard-logout.png" alt="Выход"></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://idhnlrrieqsevmztzlur.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlkaG5scnJpZXFzZXZtenR6bHVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwMjY1NzEsImV4cCI6MjA5NzYwMjU3MX0.4ok0aCVMdOyoc6o-AejseAlW8kj2N14BxT6QC0hGsho';
+    const db = supabase.createClient(supabaseUrl, supabaseKey);
+
+    let savedUser = null;
+    try { savedUser = JSON.parse(localStorage.getItem('apolingoUser') || 'null'); } catch(e) {}
+    if(!savedUser){ window.location.href = 'index.html'; }
+
+    const profilePanel = document.getElementById('profilePanel');
+    const learningPanel = document.getElementById('learningPanel');
+    const aboutPanel = document.getElementById('aboutPanel');
+    const module1Panel = document.getElementById('module1Panel');
+    const questionPanel = document.getElementById('questionPanel');
+    const resultPanel = document.getElementById('resultPanel');
+    const activeProfileNav = document.getElementById('activeProfileNav');
+    const activeLearningNav = document.getElementById('activeLearningNav');
+    const activeAboutNav = document.getElementById('activeAboutNav');
+    const profileLogin = document.getElementById('profileLogin');
+    const completedLessons = document.getElementById('completedLessons');
+    const avatarButton = document.getElementById('avatarButton');
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const questionTextEl = document.getElementById('questionText');
+    const answerList = document.getElementById('answerList');
+    const questionNext = document.getElementById('questionNext');
+    const resultScoreText = document.getElementById('resultScoreText');
+    const moduleLevelButtons = Array.from(document.querySelectorAll('.module-level'));
+    let lessonQuestions = [];
+    let activeQuestionIndex = 0;
+    let selectedAnswer = null;
+    let completedQuestions = new Set();
+
+    function hidePanels(){
+      [profilePanel, learningPanel, aboutPanel, module1Panel, questionPanel, resultPanel].forEach(panel => {
+        panel.classList.remove('is-open');
+        panel.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    function setActiveNav(name){
+      activeProfileNav.classList.toggle('is-active', name === 'profile');
+      activeLearningNav.classList.toggle('is-active', name === 'learning');
+      activeAboutNav.classList.toggle('is-active', name === 'about');
+    }
+
+    function openPanel(panel, name){
+      hidePanels();
+      panel.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false');
+      setActiveNav(name);
+    }
+
+    document.getElementById('openProfile').addEventListener('click', () => openPanel(profilePanel, 'profile'));
+    document.getElementById('openLearning').addEventListener('click', () => openPanel(learningPanel, 'learning'));
+    document.getElementById('openAbout').addEventListener('click', () => openPanel(aboutPanel, 'about'));
+
+    document.getElementById('openModule1').addEventListener('click', () => openPanel(module1Panel, 'learning'));
+    document.getElementById('closeModule1').addEventListener('click', () => openPanel(learningPanel, 'learning'));
+    document.getElementById('closeQuestion').addEventListener('click', () => openPanel(module1Panel, 'learning'));
+    document.getElementById('closeResult').addEventListener('click', () => openPanel(module1Panel, 'learning'));
+    moduleLevelButtons.forEach(button => button.addEventListener('click', () => openQuestion(Number(button.dataset.questionIndex || 0))));
+    document.getElementById('closeAllPopups').addEventListener('click', () => {
+      hidePanels();
+      setActiveNav(null);
+    });
+
+    document.getElementById('logoutButton').addEventListener('click', () => {
+      localStorage.removeItem('apolingoUser');
+      window.location.href = 'index.html';
+    });
+
+    function fillUser(user){
+      if(!user) return;
+      profileLogin.textContent = user.login || 'Apolion';
+      completedLessons.textContent = Number(user.completed_lessons || 0);
+      const avatarKey = 'apolingoAvatar_' + (user.id || user.login || 'default');
+      const savedAvatar = localStorage.getItem(avatarKey);
+      if(savedAvatar){
+        avatarPreview.src = savedAvatar;
+        avatarPreview.classList.add('is-visible');
+      }
+      avatarButton.onclick = () => avatarInput.click();
+      avatarInput.onchange = () => {
+        const file = avatarInput.files && avatarInput.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          avatarPreview.src = reader.result;
+          avatarPreview.classList.add('is-visible');
+          localStorage.setItem(avatarKey, reader.result);
+        };
+        reader.readAsDataURL(file);
+      };
+    }
+
+
+
+    const moduleProgressKey = () => 'apolingoModule1Progress_' + (savedUser && (savedUser.id || savedUser.login) || 'guest');
+
+    function loadLocalModuleProgress(){
+      try{
+        const raw = localStorage.getItem(moduleProgressKey());
+        completedQuestions = new Set(raw ? JSON.parse(raw) : []);
+      }catch(e){ completedQuestions = new Set(); }
+      renderModuleProgress();
+    }
+
+    function saveLocalModuleProgress(){
+      localStorage.setItem(moduleProgressKey(), JSON.stringify([...completedQuestions]));
+    }
+
+    function renderModuleProgress(){
+      moduleLevelButtons.forEach((button, index) => {
+        const img = button.querySelector('img');
+        const done = completedQuestions.has(index);
+        if(index === 5){ img.src = done ? 'assets/boss-done.png' : 'assets/boss-locked.png'; }
+        else { img.src = done ? 'assets/level-done.png' : 'assets/level-locked.png'; }
+      });
+    }
+
+    async function loadModuleQuestions(){
+      const { data, error } = await db
+        .from('questions')
+        .select(`id, question_text, answers(id, answer_text, is_correct)`)
+        .eq('lesson_id', 1)
+        .order('id', { ascending: true });
+      if(error){
+        console.error(error);
+        lessonQuestions = [];
+        return;
+      }
+      lessonQuestions = (data || []).slice(0, 6).map(q => ({
+        ...q,
+        answers: (q.answers || []).slice().sort((a,b) => Number(a.id) - Number(b.id)).slice(0,3)
+      }));
+    }
+
+    function openQuestion(index){
+      activeQuestionIndex = index;
+      selectedAnswer = null;
+      questionPanel.classList.toggle('is-question-6', index === 5);
+      const q = lessonQuestions[index];
+      questionTextEl.textContent = q ? q.question_text : 'Вопрос не найден';
+      answerList.innerHTML = '';
+      const answers = q && q.answers && q.answers.length ? q.answers : [
+        { id:'empty1', answer_text:'Ответ 1', is_correct:false },
+        { id:'empty2', answer_text:'Ответ 2', is_correct:false },
+        { id:'empty3', answer_text:'Ответ 3', is_correct:false }
+      ];
+      answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.className = 'answer-option';
+        button.type = 'button';
+        button.textContent = answer.answer_text;
+        button.addEventListener('click', () => {
+          selectedAnswer = answer;
+          answerList.querySelectorAll('.answer-option').forEach(btn => btn.classList.remove('is-selected'));
+          button.classList.add('is-selected');
+        });
+        answerList.appendChild(button);
+      });
+      openPanel(questionPanel, 'learning');
+    }
+
+    async function persistModuleProgress(){
+      saveLocalModuleProgress();
+      renderModuleProgress();
+      const score = completedQuestions.size;
+      if(!savedUser || !savedUser.id) return;
+      try{
+        const { data: existing, error: findError } = await db
+          .from('user_progress')
+          .select('id')
+          .eq('user_id', savedUser.id)
+          .eq('lesson_id', 1)
+          .maybeSingle();
+        if(findError){ console.error(findError); return; }
+        if(existing && existing.id){
+          const { error } = await db
+            .from('user_progress')
+            .update({ score, completed: score >= 6 })
+            .eq('id', existing.id);
+          if(error) console.error(error);
+        }else{
+          const { error } = await db
+            .from('user_progress')
+            .insert([{ user_id: savedUser.id, lesson_id: 1, score, completed: score >= 6 }]);
+          if(error) console.error(error);
+        }
+        if(score >= 6){
+          const completedLessonCount = Math.max(Number(savedUser.completed_lessons || 0), 1);
+          const { data: updatedUser, error: userError } = await db
+            .from('users')
+            .update({ completed_lessons: completedLessonCount })
+            .eq('id', savedUser.id)
+            .select('id, login, completed_lessons')
+            .maybeSingle();
+
+          if(userError){
+            console.error('Не удалось сохранить completed_lessons в Supabase:', userError);
+            return;
+          }
+
+          if(updatedUser){
+            savedUser = updatedUser;
+          }else{
+            savedUser.completed_lessons = completedLessonCount;
+          }
+
+          localStorage.setItem('apolingoUser', JSON.stringify(savedUser));
+          fillUser(savedUser);
+        }
+      }catch(e){ console.error(e); }
+    }
+
+    function openResult(){
+      const score = completedQuestions.size;
+      resultScoreText.innerHTML = `Правильно решено<br>${score} из 6`;
+      openPanel(resultPanel, 'learning');
+    }
+
+    questionNext.addEventListener('click', async () => {
+      if(selectedAnswer && selectedAnswer.is_correct === true){
+        completedQuestions.add(activeQuestionIndex);
+        await persistModuleProgress();
+      }
+
+      if(activeQuestionIndex < 5){
+        openQuestion(activeQuestionIndex + 1);
+      }else{
+        openResult();
+      }
+    });
+
+    fillUser(savedUser);
+    loadLocalModuleProgress();
+    loadModuleQuestions();
+
+    async function refreshUser(){
+      if(!savedUser || !savedUser.id) return;
+      const { data, error } = await db
+        .from('users')
+        .select('id, login, completed_lessons')
+        .eq('id', savedUser.id)
+        .maybeSingle();
+      if(error){ console.error(error); return; }
+      if(data){
+        savedUser = data;
+        localStorage.setItem('apolingoUser', JSON.stringify(data));
+        fillUser(data);
+      }
+    }
+    refreshUser();
+  </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apolingo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="auth-message" id="authMessage" aria-live="polite"></div>
+  <main class="page">
+    <section class="screen">
+      <img class="top-mascot" src="assets/mascot.png" alt="Apolingo mascot" />
+      <img class="logo" src="assets/apolingo-logo.png" alt="Apolingo" />
+
+      <div class="intro">
+        <img class="group" src="assets/group.png" alt="" />
+        <div class="cta">
+          <img class="title" src="assets/title.png" alt="Учите языки бесплатно, весело и эффективно!" />
+          <button class="img-button js-open-register" type="button"><img src="assets/start-button.png" alt="Начать" /></button>
+          <button class="img-button js-open-login" type="button"><img src="assets/login-button.png" alt="У меня уже есть аккаунт" /></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom">
+      <div class="purple-fill"></div>
+      <img class="horizon" src="assets/horizon.png" alt="" />
+      <img class="left-chibi" src="assets/chibi-left.png" alt="" />
+      <img class="right-chibi" src="assets/chibi-right.png" alt="" />
+      <button class="about-button js-open-about" type="button"><img src="assets/about.png" alt="О нас" /></button>
+    </section>
+  </main>
+
+
+  <div class="auth-popup" id="loginPopup" aria-hidden="true">
+    <div class="auth-canvas">
+      <button class="popup-close js-close-auth" type="button" aria-label="Закрыть"><img src="assets/close.png" alt="" /></button>
+      <button class="popup-switch popup-register js-open-register" type="button"><img src="assets/register-popup.png" alt="Регистрация" /></button>
+
+      <form class="auth-form login-form" action="#" method="post">
+        <img class="popup-title login-title" src="assets/login-title.png" alt="Вход" />
+
+        <label class="field field-login">
+          <span class="sr-only">Логин</span>
+          <input type="text" name="login" autocomplete="username" />
+        </label>
+
+        <label class="field field-password">
+          <span class="sr-only">Пароль</span>
+          <input type="password" name="password" autocomplete="current-password" />
+        </label>
+
+        <button class="popup-submit" type="submit"><img src="assets/login-submit.png" alt="Вход" /></button>
+      </form>
+
+      <img class="popup-terms" src="assets/login-terms.png" alt="Выполняя вход в аккаунт Apolingo, вы соглашаетесь с нашими Условиями и Политикой конфиденциальности." />
+    </div>
+  </div>
+
+  <div class="auth-popup" id="registerPopup" aria-hidden="true">
+    <div class="auth-canvas">
+      <button class="popup-close js-close-auth" type="button" aria-label="Закрыть"><img src="assets/close.png" alt="" /></button>
+      <button class="popup-switch popup-login js-open-login" type="button"><img src="assets/login-switch.png" alt="Вход" /></button>
+
+      <form class="auth-form register-form" action="#" method="post">
+        <img class="popup-title register-title" src="assets/register-title.png" alt="Регистрация" />
+
+        <label class="field field-reg-login">
+          <span class="sr-only">Логин</span>
+          <input type="text" name="login" autocomplete="username" />
+        </label>
+
+        <label class="field field-reg-password">
+          <span class="sr-only">Пароль</span>
+          <input type="password" name="password" autocomplete="new-password" />
+        </label>
+
+        <label class="field field-reg-confirm">
+          <span class="sr-only">Подтвердите пароль</span>
+          <input type="password" name="confirm-password" autocomplete="new-password" />
+        </label>
+
+        <button class="popup-submit register-submit" type="submit"><img src="assets/create-account-submit.png" alt="Создать аккаунт" /></button>
+      </form>
+
+      <img class="popup-terms register-terms" src="assets/register-terms.png" alt="Выполняя вход в аккаунт Apolingo, вы соглашаетесь с нашими Условиями и Политикой конфиденциальности." />
+    </div>
+  </div>
+
+
+  <div class="auth-popup" id="aboutPopup" aria-hidden="true">
+    <div class="auth-canvas about-canvas">
+      <button class="about-close js-close-auth" type="button" aria-label="Закрыть"></button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://idhnlrrieqsevmztzlur.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlkaG5scnJpZXFzZXZtenR6bHVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwMjY1NzEsImV4cCI6MjA5NzYwMjU3MX0.4ok0aCVMdOyoc6o-AejseAlW8kj2N14BxT6QC0hGsho';
+    const db = supabase.createClient(supabaseUrl, supabaseKey);
+
+    const loginPopup = document.getElementById('loginPopup');
+    const registerPopup = document.getElementById('registerPopup');
+    const aboutPopup = document.getElementById('aboutPopup');
+    const authMessage = document.getElementById('authMessage');
+
+    const openLoginButtons = document.querySelectorAll('.js-open-login');
+    const openRegisterButtons = document.querySelectorAll('.js-open-register');
+    const closeAuthButtons = document.querySelectorAll('.js-close-auth');
+    const openAboutButtons = document.querySelectorAll('.js-open-about');
+
+    const loginForm = document.querySelector('.login-form');
+    const registerForm = document.querySelector('.register-form');
+
+    function showMessage(text){
+      authMessage.textContent = text;
+      authMessage.classList.add('is-visible');
+      clearTimeout(showMessage.timer);
+      showMessage.timer = setTimeout(() => {
+        authMessage.classList.remove('is-visible');
+        authMessage.textContent = '';
+      }, 5000);
+    }
+
+    function showPopup(popup){
+      loginPopup.classList.remove('is-open');
+      registerPopup.classList.remove('is-open');
+      aboutPopup.classList.remove('is-open');
+
+      loginPopup.setAttribute('aria-hidden', 'true');
+      registerPopup.setAttribute('aria-hidden', 'true');
+      aboutPopup.setAttribute('aria-hidden', 'true');
+
+      popup.classList.add('is-open');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('popup-open');
+    }
+
+    function openLogin(){ showPopup(loginPopup); }
+    function openRegister(){ showPopup(registerPopup); }
+    function openAbout(){ showPopup(aboutPopup); }
+
+    function closeAuth(){
+      loginPopup.classList.remove('is-open');
+      registerPopup.classList.remove('is-open');
+      aboutPopup.classList.remove('is-open');
+      loginPopup.setAttribute('aria-hidden', 'true');
+      registerPopup.setAttribute('aria-hidden', 'true');
+      aboutPopup.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('popup-open');
+    }
+
+    function goToDashboard(user){
+      localStorage.setItem('apolingoUser', JSON.stringify(user));
+      window.location.href = 'dashboard.html';
+    }
+
+    async function registerUser(event){
+      event.preventDefault();
+
+      const login = registerForm.querySelector('input[name="login"]').value.trim();
+      const password = registerForm.querySelector('input[name="password"]').value.trim();
+      const confirm = registerForm.querySelector('input[name="confirm-password"]').value.trim();
+
+      if(!login || !password || !confirm){
+        showMessage('Заполните все поля.');
+        return;
+      }
+
+      if(password !== confirm){
+        showMessage('Пароли не совпадают.');
+        return;
+      }
+
+      const { data: sameUser, error: sameError } = await db
+        .from('users')
+        .select('id, login, completed_lessons')
+        .eq('login', login)
+        .eq('password_hash', password)
+        .maybeSingle();
+
+      if(sameError){
+        console.error(sameError);
+        showMessage('Ошибка подключения к базе данных.');
+        return;
+      }
+
+      if(sameUser){
+        showMessage('такие данные уже есть.');
+        return;
+      }
+
+      const { data: loginExists, error: loginError } = await db
+        .from('users')
+        .select('id')
+        .eq('login', login)
+        .maybeSingle();
+
+      if(loginError){
+        console.error(loginError);
+        showMessage('Ошибка подключения к базе данных.');
+        return;
+      }
+
+      if(loginExists){
+        showMessage('такой логин уже есть.');
+        return;
+      }
+
+      const { data, error } = await db
+        .from('users')
+        .insert([{ login: login, password_hash: password }])
+        .select('id, login, completed_lessons')
+        .single();
+
+      if(error){
+        console.error(error);
+        showMessage('Ошибка создания аккаунта.');
+        return;
+      }
+
+      goToDashboard(data);
+    }
+
+    async function loginUser(event){
+      event.preventDefault();
+
+      const login = loginForm.querySelector('input[name="login"]').value.trim();
+      const password = loginForm.querySelector('input[name="password"]').value.trim();
+
+      if(!login || !password){
+        showMessage('Заполните все поля.');
+        return;
+      }
+
+      const { data, error } = await db
+        .from('users')
+        .select('id, login, completed_lessons')
+        .eq('login', login)
+        .eq('password_hash', password)
+        .maybeSingle();
+
+      if(error){
+        console.error(error);
+        showMessage('Ошибка подключения к базе данных.');
+        return;
+      }
+
+      if(!data){
+        showMessage('таких данных нет.');
+        return;
+      }
+
+      goToDashboard(data);
+    }
+
+    openLoginButtons.forEach(button => button.addEventListener('click', openLogin));
+    openRegisterButtons.forEach(button => button.addEventListener('click', openRegister));
+    openAboutButtons.forEach(button => button.addEventListener('click', openAbout));
+    closeAuthButtons.forEach(button => button.addEventListener('click', closeAuth));
+
+    loginForm.addEventListener('submit', loginUser);
+    registerForm.addEventListener('submit', registerUser);
+
+    document.addEventListener('keydown', event => {
+      if(event.key === 'Escape') closeAuth();
+    });
+  </script>
+</body>
+</html>
